@@ -184,7 +184,7 @@ public class OCCodeWebServices {
         String response = sendRequest(server + "/session", "POST", generateJson(dataMap));
         if (response != null) {
             if (response.contains("1")) sendScreenshot();
-            switch (response) {
+            switch (response.split(":")[0]) {
                 case "run":
                     if (!bot.isRunning() && !bot.isStopped()) bot.resume();
                     break;
@@ -199,6 +199,12 @@ public class OCCodeWebServices {
         customMap.clear();
     }
 
+    /**
+     * Scales the image to the boundary size if the image boundaries are greater than the maximum given boundary.
+     * @param imageSize Image size
+     * @param boundary Max size
+     * @return Scaled dimension
+     */
     private Dimension getScaledDimension(Dimension imageSize, Dimension boundary) {
         int ow = imageSize.width;
         int oh = imageSize.height;
