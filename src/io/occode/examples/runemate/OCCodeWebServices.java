@@ -44,19 +44,6 @@ public class OCCodeWebServices {
         }
     }
 
-    // TODO DELETE
-    public OCCodeWebServices() {
-        this.server = "http://localhost:6969";
-        this.token = "12345";
-        this.bot = bot;
-        this.forumUsername = "Qosmiof2";
-        this.scriptName = "My Bot";
-        basicData.put("token", token);
-        basicData.put("client", client);
-        basicData.put("script", scriptName);
-        sessionID = getSessionID();
-    }
-
     private AbstractBot bot;
     private String token, client = "RUNEMATE", forumUsername, scriptName;
     private Gson gson = new GsonBuilder().create();
