@@ -8,6 +8,7 @@ import com.runemate.game.api.script.framework.AbstractBot;
 
 import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -156,6 +157,7 @@ public class OCCodeWebServices {
      * @param experience Total experience gained
      * @param runtime Total runtime
      */
+
     public void update(@Nonnull String botStatus, int experience, long runtime) {
         update(botStatus, experience, runtime, "");
     }
@@ -197,6 +199,52 @@ public class OCCodeWebServices {
         customMap.clear();
     }
 
+    private Dimension getScaledDimension(Dimension imageSize, Dimension boundary) {
+        int ow = imageSize.width;
+        int oh = imageSize.height;
+
+        int bw = boundary.width;
+        int bh = boundary.height;
+
+        int nw = ow;
+        int nh = oh;
+
+        // first check if we need to scale width
+        if (ow > bw) {
+            //scale width to fit
+            nw = bw;
+            //scale height to maintain aspect ratio
+            nh = nw * oh / ow;
+        }
+
+        // then check if we need to scale even with the new height
+        if (nh > bh) {
+            //scale height to fit instead
+            nh = bh;
+            //scale width to maintain aspect ratio
+            nw = nh * ow / oh;
+        }
+        return new Dimension(nw, nh);
+    }
+
+    /**
+     * Resizes the image to the determined dimension and returns it.
+     * @param originalImage Image to be resized
+     * @param dimension Dimensions of the new image
+     * @return Resized image
+     */
+    private BufferedImage resizeImage(Image originalImage, Dimension dimension) {
+        BufferedImage resizedImage = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImage.createGraphics();
+        g2.setComposite(AlphaComposite.Src);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.drawImage(originalImage, 0, 0, dimension.width, dimension.height, null);
+        g2.dispose();
+        return resizedImage;
+    }
+
     /**
      * Sends a screenshot to the server for the appropriate session.
      */
@@ -204,6 +252,7 @@ public class OCCodeWebServices {
         try {
             BufferedImage image = Screen.capture();
             if (image != null) {
+                image = resizeImage(image, getScaledDimension(new Dimension(image.getWidth(), image.getHeight()), new Dimension(600, 400)));
                 imageMap.clear();
                 imageMap.put("sid", sessionID);
                 imageMap.put("token", token);
@@ -220,7 +269,7 @@ public class OCCodeWebServices {
     /**
      * Image in the form of base64 string
      * @param img Client image
-     * @return
+     * @return Image in 64-bit string form
      */
     private String imgToBase64String(final BufferedImage img) {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -276,6 +325,7 @@ public class OCCodeWebServices {
     /**
      * Pauses the bot
      */
+
     public void onPause() {
         sendAction(true);
     }
@@ -283,6 +333,7 @@ public class OCCodeWebServices {
     /**
      * Resumes the bot
      */
+
     public void onResume() {
         sendAction(false);
     }
