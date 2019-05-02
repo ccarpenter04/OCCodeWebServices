@@ -350,9 +350,6 @@ public class OCCodeWebServices {
         put(503, "[Service Unavailable] Server is currently not accepting any requests. Probably under maintenance.");
     }};
 
-    /**
-     * Generic Enum for holding notification types.
-     */
     public enum NotificationType {
         GENERAL, ERROR, WARNING, INFORMATION, SUCCESS
     }
