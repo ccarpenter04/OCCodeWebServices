@@ -143,7 +143,7 @@ public class OCCodeWebServices {
         String response = sendRequest(server + "/session", "POST", generateJson(dataMap));
         if (response != null) {
             if (response.contains("1")) sendScreenshot();
-            switch (response) {
+            switch (response.split(":")[0]) {
                 case "run":
                     if (!script.isAlive() && !script.isStopping()) script.setPaused(false);
                     break;
