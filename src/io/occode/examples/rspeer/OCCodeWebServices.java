@@ -2,6 +2,7 @@ package io.occode.examples.rspeer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import org.rspeer.RSPeer;
 import org.rspeer.runetek.providers.RSClient;
 import org.rspeer.script.Script;
@@ -282,6 +283,15 @@ public class OCCodeWebServices {
     }};
 
     public enum NotificationType {
-        GENERAL, ERROR, WARNING, INFORMATION, SUCCESS
+        @SerializedName("GENERAL")
+        GENERAL,
+        @SerializedName("ERROR")
+        ERROR,
+        @SerializedName("WARNING")
+        WARNING,
+        @SerializedName("INFORMATION")
+        INFORMATION,
+        @SerializedName("SUCCESS")
+        SUCCESS
     }
 }

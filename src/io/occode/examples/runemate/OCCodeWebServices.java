@@ -2,6 +2,7 @@ package io.occode.examples.runemate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.runemate.game.api.hybrid.Environment;
 import com.runemate.game.api.hybrid.local.Screen;
 import com.runemate.game.api.script.framework.AbstractBot;
@@ -357,6 +358,15 @@ public class OCCodeWebServices {
     }};
 
     public enum NotificationType {
-        GENERAL, ERROR, WARNING, INFORMATION, SUCCESS
+        @SerializedName("GENERAL")
+        GENERAL,
+        @SerializedName("ERROR")
+        ERROR,
+        @SerializedName("WARNING")
+        WARNING,
+        @SerializedName("INFORMATION")
+        INFORMATION,
+        @SerializedName("SUCCESS")
+        SUCCESS
     }
 }
