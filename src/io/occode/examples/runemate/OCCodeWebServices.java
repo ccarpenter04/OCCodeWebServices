@@ -1,4 +1,4 @@
-package io.occode.examples.runemate;
+package com;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -359,14 +359,24 @@ public class OCCodeWebServices {
 
     public enum NotificationType {
         @SerializedName("GENERAL")
-        GENERAL,
+        GENERAL(0),
         @SerializedName("ERROR")
-        ERROR,
+        ERROR(1),
         @SerializedName("WARNING")
-        WARNING,
+        WARNING(2),
         @SerializedName("INFORMATION")
-        INFORMATION,
+        INFORMATION(3),
         @SerializedName("SUCCESS")
-        SUCCESS
+        SUCCESS(4);
+
+        private final int op;
+
+        NotificationType(final int op) {
+            this.op = op;
+        }
+
+        public int getOp() {
+            return op;
+        }
     }
 }
