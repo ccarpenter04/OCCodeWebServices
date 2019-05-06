@@ -1,8 +1,8 @@
-package com;
+package io.occode.examples.runemate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose;
 import com.runemate.game.api.hybrid.Environment;
 import com.runemate.game.api.hybrid.local.Screen;
 import com.runemate.game.api.script.framework.AbstractBot;
@@ -28,7 +28,7 @@ public class OCCodeWebServices {
 
     /**
      * Initialize your web service session with your developer token and your bot instance.
-     * @param token Developer token generated from http://173.212.213.69/dash/dashboard -> Developer
+     * @param token Developer token generated from https://occode.io -> Developer
      * @param bot Script instance
      */
     public OCCodeWebServices(@Nonnull String token, @Nonnull AbstractBot bot) {
@@ -58,8 +58,7 @@ public class OCCodeWebServices {
     private String token, client = "RUNEMATE", forumUsername, scriptName;
     private Gson gson = new GsonBuilder().create();
 
-    // SOON TO BE https://occode.io/services.
-    private String server = "http://173.212.213.69/services";
+    private String server = "https://occode.io/services";
 
     // Supplier when to stop the thread [Recommended: when your bot is not running anymore].
     private Supplier<Boolean> shouldStop = () -> true;
@@ -76,8 +75,8 @@ public class OCCodeWebServices {
     private Long sessionID;
 
     /**
-     * Configures a method body to run every second.
-     * @param runnable Runnable method
+     * Returns your current sessions ID.
+     * @return Session ID
      */
     public void setup(@Nonnull Runnable runnable) {
         new Thread(() -> {
@@ -158,7 +157,6 @@ public class OCCodeWebServices {
      * @param experience Total experience gained
      * @param runtime Total runtime
      */
-
     public void update(@Nonnull String botStatus, int experience, long runtime) {
         update(botStatus, experience, runtime, "");
     }
@@ -332,7 +330,6 @@ public class OCCodeWebServices {
     /**
      * Pauses the bot
      */
-
     public void onPause() {
         sendAction(true);
     }
@@ -340,7 +337,6 @@ public class OCCodeWebServices {
     /**
      * Resumes the bot
      */
-
     public void onResume() {
         sendAction(false);
     }
@@ -358,16 +354,11 @@ public class OCCodeWebServices {
     }};
 
     public enum NotificationType {
-        @SerializedName("GENERAL")
-        GENERAL(0),
-        @SerializedName("ERROR")
-        ERROR(1),
-        @SerializedName("WARNING")
-        WARNING(2),
-        @SerializedName("INFORMATION")
-        INFORMATION(3),
-        @SerializedName("SUCCESS")
-        SUCCESS(4);
+        @Expose GENERAL(0),
+        @Expose ERROR(1),
+        @Expose WARNING(2),
+        @Expose INFORMATION(3),
+        @Expose SUCCESS(4);
 
         private final int op;
 
