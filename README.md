@@ -2,10 +2,10 @@
 This repository contains files used for running the OCCode Web Service through a bot on a given platform. This service uses a RESTful api to fulfill requests and handles then with descriptive response code where appropriate.
 
 # Running #
-Details to setup this project can be found at https://occode.io/dash/api. 
+Details to setup this project can be found at https://occode.io/api. 
 
 # API #
-API can be found at https://occode.io/dash/api.
+API can be found at https://occode.io/api.
 
 The Response codes
 =============
