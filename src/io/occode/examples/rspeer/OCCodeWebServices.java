@@ -367,11 +367,11 @@ public class OCCodeWebServices {
     }};
 
     public enum NotificationType {
-        @Expose GENERAL(0),
-        @Expose ERROR(1),
-        @Expose WARNING(2),
-        @Expose INFORMATION(3),
-        @Expose SUCCESS(4);
+        GENERAL(0),
+        ERROR(1),
+        WARNING(2),
+        INFORMATION(3),
+        SUCCESS(4);
 
         private final int op;
 
