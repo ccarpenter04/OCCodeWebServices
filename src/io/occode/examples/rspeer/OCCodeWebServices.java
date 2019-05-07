@@ -272,7 +272,7 @@ public class OCCodeWebServices {
         notificationMap.put("username", forumUsername);
         notificationMap.put("script", scriptName);
         notificationMap.put("client", client);
-        notificationMap.put("type", type);
+        notificationMap.put("type", type.op);
         return sendRequest(server + "/notification", "POST", generateJson(notificationMap));
     }
 
@@ -353,7 +353,6 @@ public class OCCodeWebServices {
         g2.dispose();
         return resizedImage;
     }
-
 
     /**
      * Handle responses with helpful messages
