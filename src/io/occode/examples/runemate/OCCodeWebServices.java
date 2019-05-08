@@ -75,8 +75,11 @@ public class OCCodeWebServices {
     private Long sessionID;
 
     /**
-     * Returns your current sessions ID.
-     * @return Session ID
+     * Performs the initial setup (initialization) of the web services update thread.
+     * Calling this method more than once is not supported and strongly discouraged.
+     *
+     * @param runnable The Runnable to be executed by the web services update thread.
+     *                 It will be invoked multiple times at an undefined frequency.
      */
     public void setup(@Nonnull Runnable runnable) {
         new Thread(() -> {
@@ -84,7 +87,7 @@ public class OCCodeWebServices {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    if (sessionID == -1) sessionID = getSessionID(); // Add this line in #setup function.
+                    if (sessionID == -1) sessionID = getSessionID();
                     if (shouldStop.get()) {
                         timer.cancel();
                         timer.purge();
